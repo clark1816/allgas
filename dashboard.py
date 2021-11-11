@@ -9,7 +9,9 @@ import plotly.graph_objects as go
 import datetime
 import yfinance as yf
 import cufflinks as cf
+import os
 
+hostaddress = os.environ.get('PORT') or 'localhost'
 
 
 
@@ -17,7 +19,7 @@ auth = tweepy.OAuthHandler(config.TWITTER_CONSUMER_KEY, config.TWITTER_CONSUMER_
 auth.set_access_token(config.TWITTER_ACCESS_TOKEN, config.TWITTER_ACCESS_TOKEN_SECRET)
 api = tweepy.API(auth)
 
-connection = psycopg2.connect(host = 'localhost', database='etfdb', user='postgres', password='password', port='5432')
+connection = psycopg2.connect(host = hostaddress, database='etfdb', user='postgres', password='password', port='5432')
 cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
 option = st.sidebar.selectbox("Which Dashboard?", ('twitter', 'wallstreetbets', 'stocktwits', 'patterns','company info'), 1)
